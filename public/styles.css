@@ -1,8 +1,8 @@
 body {
-  font-family: sans-serif;
-  color: #333;
-  background-color: pink;
-  font-family: monospace;
+  background-color: lightgrey;
+  text-align: center;
+  margin: 0 2vw;
+  font-family: 'Lemonada', cursive;
 }
 
 img {
@@ -10,12 +10,35 @@ img {
   width: 200px;
 }
 
+a {
+  border-style: solid;
+  border-width: 0.3vw;
+  background-color: white;
+  margin: 0.8vw;
+  padding: 0.7vw;
+  font-size: 1.4vw;
+  cursor: pointer;
+}
+
+a:hover {
+  border-width: 0.6vw;
+}
+
 a, a:hover, a:active, a:visited {
   color: #555;
 }
 
 ul {
-  list-style-type: none;
+  list-style: none;
 }
 
+
+h1 {
+  font-family: 'Monoton', cursive;
+  font-size: 6vw;
+  padding: none;
+  border-style: solid;
+  border-width: 0.5vw;
+  background-color: white;
+}
 

@@ -39,13 +39,12 @@ function renderName(apiResponse) {
     var liName = document.createElement('li')
     var liLinka = document.createElement('a')
     liLinka.href = repo.html_url
-    liLinka.innerHTML = repo.name
+    liLinka.innerHTML = repo.name 
     var liDescription = document.createElement('li')
     liDescription.innerHTML = repo.description
     var liStars = document.createElement('li')
-    liStars.innerHTML = 'Stars: ' + repo.stargazers_count
+    liStars.innerHTML = 'Stars: '+  repo.stargazers_count
     var liLink = document.createElement('a')
-    liLink.target = '_blank'
     liLink.href = repo.html_url
     liLink.innerText = repo.name
     newList.appendChild(liLinka)
