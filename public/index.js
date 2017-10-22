@@ -1,6 +1,6 @@
 // global array
 var results = [];
-
+var selectRepos = document.getElementById('repos')
 
 // create the url 
 var date = dateLastWeek()
@@ -29,16 +29,12 @@ function httpRequest(url, type, callback) {
 
 // dom render
 function renderName(apiResponse) {
-  var selectRepos = document.getElementById('repos')
   var repoArr = apiResponse.items
-  results.push.apply(results,repoArr)
-  console.log('results post concat', results)
+  results.push.apply(results, repoArr)
   repoArr.forEach(function (repo) {
     var repoSection = document.createElement('section')
     repoSection.setAttribute('id', 'Repo-Info')
-
     var newList = document.createElement('ul')
-
     var liName = document.createElement('li')
     var liLinka = document.createElement('a')
     liLinka.href = repo.html_url
@@ -77,18 +73,53 @@ function renderName(apiResponse) {
 
 // problem is that at the moment i dont know how to pass the reposArr to the event listener. can an event listener take in another object ? 
 // maybe you could just have a clobal varibale that = [] . push repos arr to the global array. then have the event listener loop over that global array. 
-// need to have a look at how the rresults array looks once repoArr is pushed to it.  
+// need to have a look at how the rresults array looks once repoArr is pushed to it.
 
+// on user input we should make an api call to github 
 
+// if i give render name response.items, then push to results array,  then loop through the items and render. then search loops through results and calls render items. 
+// current problem is that i cannot assign the filtered results to filteredResults. 
 
 document.getElementById('userSearch').addEventListener('input', function (event) {
-  results.filter(function (result) {
-    console.log('single result.name', result.name)
-  return result.name.includes(event.target.value)
-   
-  })
+  var filteredResults = results.filter(function (result) {
+    return result.name.includes(event.target.value)
+  }) 
+renderFilteredRepos(filteredResults)
 })
 
+function renderFilteredRepos(filteredResults) {
+  console.log('renderfiltered Called', filteredResults)
+  selectRepos.innerHTML = "";
+  results.forEach(function (repo) {
+    var repoSection = document.createElement('section')
+    repoSection.setAttribute('id', 'Repo-Info')
+
+    var newList = document.createElement('ul')
+    var liName = document.createElement('li')
+    var liLinka = document.createElement('a')
+    liLinka.href = repo.html_url
+    liLinka.innerHTML = repo.name
+    var liDescription = document.createElement('li')
+    liDescription.innerHTML = repo.description
+    var liStars = document.createElement('li')
+    liStars.innerHTML = 'Stars: ' + repo.stargazers_count
+    var liLink = document.createElement('a')
+    liLink.href = repo.html_url
+    liLink.innerText = repo.name
+    newList.appendChild(liLinka)
+    newList.appendChild(liDescription)
+    newList.appendChild(liStars)
+
+    selectRepos.appendChild(newList)
+  })
+
+}
+
+
+// const responseObject = {
+//   results: search(searchWord)
+// }
+// return responseObject;
 
 // var filteredEvents = events.filter(function(event){
 //   return event.date == '22-02-2016';
