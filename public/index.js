@@ -31,9 +31,9 @@ function httpRequest(url, type, callback) {
 function renderName(apiResponse) {
   var repoArr = apiResponse.items
   results.push.apply(results, repoArr)
+  console.log('results before push', results)
   repoArr.forEach(function (repo) {
-    var repoSection = document.createElement('section')
-    repoSection.setAttribute('id', 'Repo-Info')
+    
     var newList = document.createElement('ul')
     var liName = document.createElement('li')
     var liLinka = document.createElement('a')
@@ -52,7 +52,7 @@ function renderName(apiResponse) {
 
     selectRepos.appendChild(newList)
   })
-
+toLowerCase(results)
 }
 
 
@@ -80,16 +80,36 @@ function renderName(apiResponse) {
 // if i give render name response.items, then push to results array,  then loop through the items and render. then search loops through results and calls render items. 
 // current problem is that i cannot assign the filtered results to filteredResults. 
 
+//need to set results to lower case and fix the input to lowercase. need to loop through results[i].name to change all to lowercase. write a for loop to do that in toLowerCase function 
+
 document.getElementById('userSearch').addEventListener('input', function (event) {
   var filteredResults = results.filter(function (result) {
-    return result.name.includes(event.target.value)
+    return result.name.includes(event.target.value.toLowerCase().replace(/[^a-z]/g," "))
   }) 
+  console.log('filtered Res', filteredResults)
 renderFilteredRepos(filteredResults)
 })
 
+
+function toLowerCase (wordsArray){
+
+  var lowerCaseResults = [];
+  for (var i = 0; i < results.length; i++) {
+      lowerCaseResults.push(results[i].name.toLowerCase().replace(/[^a-z]/g," "));
+  }
+  console.log('words array', lowerCaseResults)
+ 
+}
+
 function renderFilteredRepos(filteredResults) {
   console.log('renderfiltered Called', filteredResults)
-  selectRepos.innerHTML = "";
+  console.log('select repos before delete', selectRepos)
+ //   while (selectRepos.hasChildNodes()) {
+ //     selectRepos.removeChild(selectRepos.firstChild);
+ // }
+
+ selectRepos.innerHTML= "";
+  console.log('select repos after delete', selectRepos)
   results.forEach(function (repo) {
     var repoSection = document.createElement('section')
     repoSection.setAttribute('id', 'Repo-Info')
