@@ -107,8 +107,8 @@ function lowerCase(wordsArray) {
   for (var i = 0; i < wordsArray.length; i++) {
     lowerCaseResults.push({ name: wordsArray[i].name.toLowerCase().replace(/[^a-z]/g, " "), html_url: wordsArray[i].html_url, description: wordsArray[i].description, stargazers_count: wordsArray[i].stargazers_count });
   }
-  console.log('lowercaseResults ', lowerCaseResults)
-  return lowerCaseResults;
+  // console.log('lowercaseResults ', lowerCaseResults)
+  // return lowerCaseResults;
 }
 
 function renderFilteredRepos(filteredResults) {
@@ -116,7 +116,7 @@ function renderFilteredRepos(filteredResults) {
   console.log('select repos before delete', selectRepos)
   selectRepos.innerHTML = "";
   console.log('select repos after delete', selectRepos)
-  lowerCaseResults.forEach(function (repo) {
+ filteredResults.forEach(function (repo) {
     var repoSection = document.createElement('section')
     repoSection.setAttribute('id', 'Repo-Info')
 
