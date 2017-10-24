@@ -32,10 +32,9 @@ function httpRequest(url, type, callback) {
 function renderName(apiResponse) {
   var repoArr = apiResponse.items
   results.push.apply(results, repoArr)
-  console.log('repoArr', repoArr)
-  console.log('results', results)
+  
   lowerCase(results)
-  console.log('results before push', results)
+ 
   // repoArr.forEach(function (repo) {
   // render 10 elements only 
   for (var i = 0; i < 10; i++) {
@@ -65,36 +64,9 @@ function renderName(apiResponse) {
 }
 
 
-
-// api request is made n load,
-// res is stored in a JSON
-// event listener on the input that gets called on every keypress. it makes an api call every key process.
-// it also builds the api url by removing white space and adding /search to it. 
-// search function runs a filter on the array of objects (on the json)
-
-// built a function that creates an input form and appends it to the repos dom once api response comes. 
-// next need to add an event listener to the serarch field that calls the search function on input. 
-// the search function does a filter on the response array/ 
-
-//instead of creating an input and appending it once the api response comes in, may be better to build a search function as standard, with an event listener. 
-// need to first build a function that takes the response obj, and builds a new one via object .keys. 
-// once this object is built, only if it exists is a search form rendered on the dom with an event listener....
-
-// problem is that at the moment i dont know how to pass the reposArr to the event listener. can an event listener take in another object ? 
-// maybe you could just have a clobal varibale that = [] . push repos arr to the global array. then have the event listener loop over that global array. 
-// need to have a look at how the rresults array looks once repoArr is pushed to it.
-
-// on user input we should make an api call to github 
-
-// if i give render name response.items, then push to results array,  then loop through the items and render. then search loops through results and calls render items. 
-// current problem is that i cannot assign the filtered results to filteredResults. 
-
-//need to set results to lower case and fix the input to lowercase. need to loop through results[i].name to change all to lowercase. write a for loop to do that in toLowerCase function 
-// at the moment the rendered results render undefined because they are looping through only the names array of lowercase results. in order to fix this lower case results needs to have the entire object of the normal results. 
-// i could change the logic of the lower case function tosay IF what is typed in the input (all to lower case and replaced equals the lower case replaced version on lower case results then render them on screen. i could maybe put this all in the input event listener. 
+// thinkg that maybe i dont even need a search functionality having now built it lol. thinking how to loop through using forEach with an iterator instead of the for loops. Need to refactor the functions and make code alot more readable. also need to do styling, and tests . 
 document.getElementById('userSearch').addEventListener('input', function (event) {
 
-  console.log('lowerCaseResults', lowerCaseResults)
   var filteredResults = lowerCaseResults.filter(function (result) {
     return result.name.includes(event.target.value.toLowerCase().replace(/[^a-z]/g, " "))
   })
@@ -107,15 +79,12 @@ function lowerCase(wordsArray) {
   for (var i = 0; i < wordsArray.length; i++) {
     lowerCaseResults.push({ name: wordsArray[i].name.toLowerCase().replace(/[^a-z]/g, " "), html_url: wordsArray[i].html_url, description: wordsArray[i].description, stargazers_count: wordsArray[i].stargazers_count });
   }
-  // console.log('lowercaseResults ', lowerCaseResults)
-  // return lowerCaseResults;
 }
 
 function renderFilteredRepos(filteredResults) {
-  console.log('renderfiltered Called', filteredResults)
-  console.log('select repos before delete', selectRepos)
+  
   selectRepos.innerHTML = "";
-  console.log('select repos after delete', selectRepos)
+
  filteredResults.forEach(function (repo) {
     var repoSection = document.createElement('section')
     repoSection.setAttribute('id', 'Repo-Info')
@@ -142,7 +111,7 @@ function renderFilteredRepos(filteredResults) {
 }
 
 
-// uncomment out all below and xhr call above. 
+// uncomment out all below and xhr call above. fake object for when there is no wifi.  
 // name, desc, number of stars.
 httpRequest(url, 'GET', renderName)
 

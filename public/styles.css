@@ -32,6 +32,10 @@ ul {
   list-style: none;
 }
 
+li{
+  margin: 0.8vw;
+}
+
 
 h1 {
   font-family: 'Monoton', cursive;
