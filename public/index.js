@@ -36,26 +36,31 @@ function renderName(apiResponse) {
   console.log('results', results)
   lowerCase(results)
   console.log('results before push', results)
-  repoArr.forEach(function (repo) {
-    
+  // repoArr.forEach(function (repo) {
+  // render 10 elements only 
+  for (var i = 0; i < 10; i++) {
+
     var newList = document.createElement('ul')
+    newList.id = "repo-info"
     var liName = document.createElement('li')
     var liLinka = document.createElement('a')
-    liLinka.href = repo.html_url
-    liLinka.innerHTML = repo.name
+    liLinka.href = repoArr[i].html_url
+    liLinka.innerHTML = repoArr[i].name
     var liDescription = document.createElement('li')
-    liDescription.innerHTML = repo.description
+    liDescription.innerHTML = repoArr[i].description
     var liStars = document.createElement('li')
-    liStars.innerHTML = 'Stars: ' + repo.stargazers_count
+    liStars.innerHTML = 'Stars: ' + repoArr[i].stargazers_count
     var liLink = document.createElement('a')
-    liLink.href = repo.html_url
-    liLink.innerText = repo.name
+    liLink.href = repoArr.html_url
+    liLink.innerText = repoArr[i].name
     newList.appendChild(liLinka)
     newList.appendChild(liDescription)
     newList.appendChild(liStars)
 
     selectRepos.appendChild(newList)
-  })
+    // })
+
+  }
 
 }
 
@@ -89,33 +94,27 @@ function renderName(apiResponse) {
 // i could change the logic of the lower case function tosay IF what is typed in the input (all to lower case and replaced equals the lower case replaced version on lower case results then render them on screen. i could maybe put this all in the input event listener. 
 document.getElementById('userSearch').addEventListener('input', function (event) {
 
-console.log('lowerCaseResults', lowerCaseResults)
+  console.log('lowerCaseResults', lowerCaseResults)
   var filteredResults = lowerCaseResults.filter(function (result) {
-    return result.includes(event.target.value.toLowerCase().replace(/[^a-z]/g," "))
-  }) 
-renderFilteredRepos(filteredResults)
-
-
+    return result.name.includes(event.target.value.toLowerCase().replace(/[^a-z]/g, " "))
+  })
+  renderFilteredRepos(filteredResults)
 
 })
 
 
-function lowerCase (wordsArray){
+function lowerCase(wordsArray) {
   for (var i = 0; i < wordsArray.length; i++) {
-      lowerCaseResults.push(wordsArray[i].name.toLowerCase().replace(/[^a-z]/g," "));
+    lowerCaseResults.push({ name: wordsArray[i].name.toLowerCase().replace(/[^a-z]/g, " "), html_url: wordsArray[i].html_url, description: wordsArray[i].description, stargazers_count: wordsArray[i].stargazers_count });
   }
   console.log('lowercaseResults ', lowerCaseResults)
- return lowerCaseResults;
+  return lowerCaseResults;
 }
 
 function renderFilteredRepos(filteredResults) {
   console.log('renderfiltered Called', filteredResults)
   console.log('select repos before delete', selectRepos)
- //   while (selectRepos.hasChildNodes()) {
- //     selectRepos.removeChild(selectRepos.firstChild);
- // }
-
- selectRepos.innerHTML= "";
+  selectRepos.innerHTML = "";
   console.log('select repos after delete', selectRepos)
   lowerCaseResults.forEach(function (repo) {
     var repoSection = document.createElement('section')
@@ -143,58 +142,9 @@ function renderFilteredRepos(filteredResults) {
 }
 
 
-// const responseObject = {
-//   results: search(searchWord)
-// }
-// return responseObject;
-
-// var filteredEvents = events.filter(function(event){
-//   return event.date == '22-02-2016';
-// });
-
 // uncomment out all below and xhr call above. 
 // name, desc, number of stars.
 httpRequest(url, 'GET', renderName)
-
-
-// //search checks if the input characters are parts of names in database. If so, as a result we will get an array of all matching names
-// function search(word) {
-//   const lowerCaseWord = word.toLowerCase();
-//   return lib.filter(function (colour) {
-//     const lowerCaseName = colour["name"].toLowerCase();
-//     return lowerCaseName.includes(lowerCaseWord);
-//   });
-// }
-// //handleSearch returns the server response with responseObject that contains an array of all matching results
-// var prepareSearch = function prepareSearch(req) {
-
-//   const searchWord = req.url.replace('/search/', '');
-//   const responseObject = {
-//     results: search(searchWord)
-//   }
-//   return responseObject;
-
-// }
-
-// // appendData function creates new list elements for results and creates another event listener for clicks on each one to return background colour change
-// function appendData(responseObj) {
-//   colourResults.innerHTML = '';
-//   responseObj.results.forEach(function(val) {
-//     var colourNode = document.createElement("li");
-//     colourNode.tabIndex = '0';
-//     colourNode.textContent = val.name + ': ' + val.hex;
-//     colourResults.appendChild(colourNode);
-//     var hexCode = val.hex;
-//     colourNode.addEventListener('click', function(event) {
-//       var backgroundNode = document.getElementById('change-background');
-//       backgroundNode.setAttribute('style', 'background-color:' + hexCode);
-
-//     })
-//   })
-// };
-
-
-
 
 // var response = {
 //   total_count: 5514160,
