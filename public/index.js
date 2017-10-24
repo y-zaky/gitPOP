@@ -1,6 +1,7 @@
 // global array
 var results = [];
 var selectRepos = document.getElementById('repos')
+var lowerCaseResults = [];
 
 // create the url 
 var date = dateLastWeek()
@@ -31,6 +32,9 @@ function httpRequest(url, type, callback) {
 function renderName(apiResponse) {
   var repoArr = apiResponse.items
   results.push.apply(results, repoArr)
+  console.log('repoArr', repoArr)
+  console.log('results', results)
+  lowerCase(results)
   console.log('results before push', results)
   repoArr.forEach(function (repo) {
     
@@ -52,7 +56,7 @@ function renderName(apiResponse) {
 
     selectRepos.appendChild(newList)
   })
-toLowerCase(results)
+
 }
 
 
@@ -81,24 +85,27 @@ toLowerCase(results)
 // current problem is that i cannot assign the filtered results to filteredResults. 
 
 //need to set results to lower case and fix the input to lowercase. need to loop through results[i].name to change all to lowercase. write a for loop to do that in toLowerCase function 
-
+// at the moment the rendered results render undefined because they are looping through only the names array of lowercase results. in order to fix this lower case results needs to have the entire object of the normal results. 
+// i could change the logic of the lower case function tosay IF what is typed in the input (all to lower case and replaced equals the lower case replaced version on lower case results then render them on screen. i could maybe put this all in the input event listener. 
 document.getElementById('userSearch').addEventListener('input', function (event) {
-  var filteredResults = results.filter(function (result) {
-    return result.name.includes(event.target.value.toLowerCase().replace(/[^a-z]/g," "))
+
+console.log('lowerCaseResults', lowerCaseResults)
+  var filteredResults = lowerCaseResults.filter(function (result) {
+    return result.includes(event.target.value.toLowerCase().replace(/[^a-z]/g," "))
   }) 
-  console.log('filtered Res', filteredResults)
 renderFilteredRepos(filteredResults)
+
+
+
 })
 
 
-function toLowerCase (wordsArray){
-
-  var lowerCaseResults = [];
-  for (var i = 0; i < results.length; i++) {
-      lowerCaseResults.push(results[i].name.toLowerCase().replace(/[^a-z]/g," "));
+function lowerCase (wordsArray){
+  for (var i = 0; i < wordsArray.length; i++) {
+      lowerCaseResults.push(wordsArray[i].name.toLowerCase().replace(/[^a-z]/g," "));
   }
-  console.log('words array', lowerCaseResults)
- 
+  console.log('lowercaseResults ', lowerCaseResults)
+ return lowerCaseResults;
 }
 
 function renderFilteredRepos(filteredResults) {
@@ -110,7 +117,7 @@ function renderFilteredRepos(filteredResults) {
 
  selectRepos.innerHTML= "";
   console.log('select repos after delete', selectRepos)
-  results.forEach(function (repo) {
+  lowerCaseResults.forEach(function (repo) {
     var repoSection = document.createElement('section')
     repoSection.setAttribute('id', 'Repo-Info')
 
