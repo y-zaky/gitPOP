@@ -34,8 +34,7 @@ function renderName(apiResponse) {
   results.push.apply(results, repoArr)
   
   lowerCase(results)
- 
-  // repoArr.forEach(function (repo) {
+
   // render 10 elements only 
   for (var i = 0; i < 10; i++) {
 
@@ -57,7 +56,7 @@ function renderName(apiResponse) {
     newList.appendChild(liStars)
 
     selectRepos.appendChild(newList)
-    // })
+   
 
   }
 
