@@ -1,48 +1,95 @@
+
 body {
-  background-color: lightgrey;
   text-align: center;
   margin: 0 2vw;
-  font-family: 'Lemonada', cursive;
+  font-family: 'Open Sans', sans-serif;
 }
 
-img {
-  height: 200px;
-  width: 200px;
+#repos {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:  wrap;
+  background-image: url("../popcorn.png");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-a {
-  border-style: solid;
-  border-width: 0.3vw;
-  background-color: white;
-  margin: 0.8vw;
-  padding: 0.7vw;
-  font-size: 1.4vw;
-  cursor: pointer;
-}
-
-a:hover {
-  border-width: 0.6vw;
-}
-
-a, a:hover, a:active, a:visited {
-  color: #555;
+#repo-info {
+width: 20%;
+height: 40%;
 }
 
 ul {
   list-style: none;
-}
-
-li{
-  margin: 0.8vw;
-}
-
-
-h1 {
-  font-family: 'Monoton', cursive;
-  font-size: 6vw;
-  padding: none;
+  padding: 0px;
   border-style: solid;
   border-width: 0.5vw;
-  background-color: white;
+  border-color: black;
+  width: 200px;
+  border-radius: 0.3rem;
 }
 
+ul:hover {
+  border-width: 0.7vw;
+  border-color: #B6C3CC;
+}
+
+input {
+  font-size: 3vw;
+  padding: 1vw;
+  border-style: solid;
+  border-width: 0.5vw;
+  border-color: black;
+  border-radius: 0.3rem;
+}
+
+input:focus {
+  background-color: #FFD983;
+}
+
+h1 {
+  font-family:'Russo One', sans-serif;
+  font-size: 8.5vw;
+  padding: none;
+  margin: 5px ;
+}
+
+
+a, a:active, a:visited {
+  font-family:'Russo One', sans-serif;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #FFAC33;
+}
+
+
+
+header p{
+  margin-left: -10vw;
+  width: 30%;
+  font-size: 1rem;
+  bottom:15%;
+  position:relative;
+  -webkit-animation:linear infinite alternate;
+  -webkit-animation-name: tagline;
+  -webkit-animation-duration: 10s;
+}     
+@-webkit-keyframes  tagline{
+  0% { left: 0;}
+  50%{ left : 100%;}
+  100%{ left: 0;}
+}
+
+@media screen and (max-width: 425px) {
+  #repo-info {
+    width:100%
+  }
+
+  h1 {
+    font-size: 13vw;
+  }
+}

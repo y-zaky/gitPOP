@@ -44,9 +44,9 @@ function renderName(apiResponse) {
     var liName = document.createElement('li')
     var liLinka = document.createElement('a')
     liLinka.href = repoArr[i].html_url
-    liLinka.innerHTML = repoArr[i].name
+    liLinka.innerHTML = repoArr[i].name.replace(/[^a-zA-Z]/g, " ")
     var liDescription = document.createElement('li')
-    liDescription.innerHTML = repoArr[i].description
+    liDescription.innerHTML = repoArr[i].description || 'Sorry, no description'
     var liStars = document.createElement('li')
     liStars.innerHTML = 'Stars: ' + repoArr[i].stargazers_count
     var liLink = document.createElement('a')
@@ -64,7 +64,8 @@ function renderName(apiResponse) {
 }
 
 
-// thinkg that maybe i dont even need a search functionality having now built it lol. thinking how to loop through using forEach with an iterator instead of the for loops. Need to refactor the functions and make code alot more readable. also need to do styling, and tests . 
+// thinkg that maybe i dont even need a search functionality having now built it lol. thinking how to loop through using forEach with an iterator instead of the for loops. Need to refactor the functions and make code alot more readable. also need to do styling, and tests .
+// at the moment after you search, it loops through 30, so need to change that.  
 document.getElementById('userSearch').addEventListener('input', function (event) {
 
   var filteredResults = lowerCaseResults.filter(function (result) {
@@ -86,8 +87,6 @@ function renderFilteredRepos(filteredResults) {
   selectRepos.innerHTML = "";
 
  filteredResults.forEach(function (repo) {
-    var repoSection = document.createElement('section')
-    repoSection.setAttribute('id', 'Repo-Info')
 
     var newList = document.createElement('ul')
     var liName = document.createElement('li')
@@ -95,7 +94,7 @@ function renderFilteredRepos(filteredResults) {
     liLinka.href = repo.html_url
     liLinka.innerHTML = repo.name
     var liDescription = document.createElement('li')
-    liDescription.innerHTML = repo.description
+    liDescription.innerHTML = repo.description || 'Sorry, no description'
     var liStars = document.createElement('li')
     liStars.innerHTML = 'Stars: ' + repo.stargazers_count
     var liLink = document.createElement('a')
